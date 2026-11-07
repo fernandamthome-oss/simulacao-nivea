@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIVEA - Experiência Interativa SEO & Engajamento</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fontes Google - Montserrat e Playfair para tom premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nivea: {
+                            blue: '#001E62',
+                            brightBlue: '#0032A0',
+                            accent: '#185ADB',
+                            silver: '#D1D5DB',
+                            gold: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0032A0;
+            border-radius: 4px;
+        }
+
+        /* Animação e estilo da lata de metal */
+        .tin-shadow {
+            filter: drop-shadow(0 20px 30px rgba(0, 30, 98, 0.35));
+        }
+
+        /* Efeito reluzente na tampa */
+        .shine-overlay {
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 100%);
+        }
+
+        /* Transições da tampa */
+        .lid-transition {
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Botões estilizados com pulso suave */
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .cta-pulse {
+            animation: subtle-pulse 3s infinite ease-in-out;
+        }
+
+        /* Canvas cursor personalizado */
+        .cream-cursor {
+            cursor: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(240,240,240,0.5) 70%);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-800 font-sans min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- BARRA DE TOPO INSTITUCIONAL / SEO HEADER -->
+    <header class="bg-nivea-blue text-white shadow-lg sticky top-0 z-50 border-b border-blue-800">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-nivea-blue px-3 py-1 font-black tracking-tighter text-xl rounded shadow">
+                    NIVEA
+                </div>
+                <span class="text-xs md:text-sm text-blue-200 hidden sm:inline border-l border-blue-700 pl-3">
+                    Projeto Acadêmico: Interactive Clickbait & Dwell Time SEO Strategy
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-4 text-xs md:text-sm">
+                <div class="hidden md:flex items-center space-x-2 bg-blue-900/60 px-3 py-1.5 rounded-full border border-blue-700/50">
+                    <i class="fa-solid fa-clock text-amber-400"></i>
+                    <span>Dwell Time: <strong id="dwellTimer" class="text-white font-mono">00:00</strong></span>
+                </div>
+                <button onclick="toggleMetricsModal()" class="bg-nivea-brightBlue hover:bg-blue-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 transition">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Métricas SEO</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER CLICKBAIT DE ALTO ENGAJAMENTO (SEO TRIGGER) -->
+    <section class="bg-gradient-to-r from-blue-950 via-nivea-brightBlue to-blue-900 text-white py-4 px-4 shadow-inner relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1),transparent)] pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="inline-block bg-amber-400 text-slate-900 font-extrabold text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 animate-bounce">
+                🔥 Revelado pelos Dermatologistas!
+            </span>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight font-serif text-amber-100 leading-tight">
+                "O Segredo de Hidratação de 100 Anos que as Marcas de Luxo Não Querem que Você Descubra!"
+            </h1>
+            <p class="text-xs sm:text-sm text-blue-100 mt-1 max-w-2xl mx-auto opacity-90">
+                Toque no pote para abrir, passe a mão e sinta a textura lendária na sua pele. Descubra porque este azulzinho vale mais que tratamentos caros!
+            </p>
+        </div>
+    </section>
+
+    <!-- ÁREA PRINCIPAL DA EXPERIÊNCIA INTERATIVA (CANVAS + LATA 3D SIMULADA) -->
+    <main class="flex-grow flex flex-col lg:flex-row items-center justify-center p-4 md:p-6 gap-6 max-w-7xl mx-auto w-full">
+
+        <!-- PAINEL ESQUERDO: CONTROLES E INSTRUÇÕES -->
+        <div class="w-full lg:w-1/4 flex flex-col gap-4 order-2 lg:order-1">
+            <div class="bg-white rounded-2xl p-5 shadow-xl border border-slate-100">
+                <h3 class="font-bold text-nivea-blue text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-nivea-brightBlue"></i>
+                    Controles da Experiência
+                </h3>
+
+                <!-- Botão Toggle da Tampa -->
+                <button id="toggleLidBtn" onclick="toggleLid()" class="w-full bg-nivea-blue hover:bg-nivea-brightBlue text-white py-3 px-4 rounded-xl font-semibold shadow-md hover:shadow-lg transition flex items-center justify-between group mb-4">
+                    <span id="lidBtnText" class="flex items-center gap-2">
+                        <i class="fa-solid fa-box-open"></i> Abrir Tampa da Lata
+                    </span>
+                    <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <!-- Espessura do Creme -->
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-xs font-medium text-slate-600">
+                        <span>Quantidade de Creme:</span>
+                        <span id="creamSizeVal" class="text-nivea-blue font-bold">35px</span>
+                    </div>
+                    <input type="range" id="creamSize" min="15" max="70" value="35" class="w-full accent-nivea-brightBlue cursor-pointer" oninput="updateCreamSize(this.value)">
+                </div>
+
+                <!-- Botões de Ação do Canvas -->
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="clearCreamCanvas()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                        <i class="fa-solid fa-eraser"></i> Limpar Pele
+                    </button>
+                    <button onclick="autoSpreadDemo()" class="bg-blue-50 hover:bg-blue-100 text-nivea-brightBlue py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Demo
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD DE CALL TO ACTION (CTA ENGAJAMENTO) -->
+            <div class="bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-2xl p-5 shadow-xl text-center relative overflow-hidden cta-pulse">
+                <span class="text-[10px] bg-black/20 text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider mb-1 inline-block">Oferta Especial</span>
+                <h4 class="font-bold text-lg leading-snug">Quer a Pele Perfeitamente Hidratada?</h4>
+                <p class="text-xs text-amber-100 mt-1 mb-3">Garanta a lata clássica de NIVEA Creme com frete grátis na loja oficial!</p>
+                <button onclick="registerCTAClick('comprar_agora')" class="w-full bg-nivea-blue hover:bg-black text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cart-shopping"></i> Comprar Agora com Desconto
+                </button>
+            </div>
+        </div>
+
+        <!-- CENTRO: PALCO INTERATIVO (PELE DE CORTE + LATA NIVEA COM CANVAS) -->
+        <div class="w-full lg:w-2/4 flex flex-col items-center order-1 lg:order-2">
+            <div class="relative w-full aspect-square max-w-[480px] bg-[#f7d6c8] rounded-3xl shadow-2xl overflow-hidden border-4 border-white/50 cursor-crosshair flex items-center justify-center select-none" id="interactiveContainer">
+                
+                <!-- Textura de fundo simulando pele macia -->
+                <div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none" style="background-image: radial-gradient(#e5a993 1px, transparent 1px); background-size: 12px 12px;"></div>
+                
+                <!-- Canvas para desenhar o Creme Nivea -->
+                <canvas id="creamCanvas" class="absolute inset-0 z-10 touch-none"></canvas>
+
+                <!-- ESTRUTURA DA LATA NIVEA (SVG MULTICAMADAS COM TAMPA DESLIZANTE/GIRATÓRIA) -->
+                <div class="relative z-20 w-64 h-64 sm:w-72 sm:h-72 pointer-events-none tin-shadow select-none">
+                    
+                    <!-- BASE DA LATA (Creme Branco Visível) -->
+                    <div id="tinBase" class="absolute inset-0 rounded-full bg-gradient-to-br from-slate-200 via-white to-slate-100 border-4 border-slate-300 shadow-inner overflow-hidden flex items-center justify-center">
+                        <!-- Creme Branco com brilho sutil interno -->
+                        <div class="w-[92%] h-[92%] rounded-full bg-gradient-to-tr from-slate-100 via-white to-blue-50/30 border border-slate-200/60 shadow-inner flex items-center justify-center relative">
+                            <span class="text-slate-300 font-bold text-xs opacity-40 uppercase tracking-widest pointer-events-none">Arraste o Creme</span>
+                            <!-- Brilho do Creme -->
+                            <div class="absolute top-4 left-6 w-16 h-8 bg-white/80 blur-sm rounded-full transform -rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- TAMPA DA LATA (Interativa - Clica ou Arrasta para Abrir) -->
+                    <div id="tinLid" class="absolute inset-0 rounded-full bg-gradient-to-br from-nivea-brightBlue via-nivea-blue to-blue-950 border-2 border-blue-400/40 shadow-2xl pointer-events-auto cursor-grab active:cursor-grabbing lid-transition flex items-center justify-center" onclick="handleLidClick(event)">
+                        
+                        <!-- Brilho Metálico Curvado -->
+                        <div class="absolute inset-0 rounded-full shine-overlay pointer-events-none"></div>
+                        
+                        <!-- Borda prateada da lata metálica -->
+                        <div class="absolute inset-1 rounded-full border border-white/20 pointer-events-none"></div>
+
+                        <!-- LOGO NIVEA CREME ORIGINAL NA TAMPA -->
+                        <div class="text-center transform -rotate-6 select-none pointer-events-none">
+                            <div class="text-white font-black text-3xl sm:text-4xl tracking-tighter drop-shadow-md font-sans">
+                                NIVEA
+                            </div>
+                            <div class="text-white font-serif italic text-2xl sm:text-3xl -mt-2 tracking-wide font-normal drop-shadow">
+                                Creme
+                            </div>
+                        </div>
+
+                        <!-- Indicador visual para puxar/abrir -->
+                        <div id="lidHint" class="absolute bottom-4 bg-white/20 backdrop-blur-md text-white text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold pointer-events-none border border-white/30 animate-pulse">
+                            Clique para abrir
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overlay Dica visual de toque -->
+                <div id="touchInstruction" class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full z-30 pointer-events-none transition-opacity duration-500 opacity-90 flex items-center gap-2">
+                    <i class="fa-solid fa-hand-pointer text-amber-400"></i>
+                    <span>Clique na lata para abrir e passe o creme na pele!</span>
+                </div>
+            </div>
+            <p class="text-xs text-slate-400 mt-2 text-center">Simulação de pele realista e espalhamento de alta viscosidade.</p>
+        </div>
+
+        <!-- PAINEL DIREITO: MÉTRICAS SEO & CONTEXTO ACADÊMICO -->
+        <div class="w-full lg:w-1/4 flex flex-col gap-4 order-3">
+            <!-- Painel de Métricas SEO em Tempo Real -->
+            <div class="bg-white rounded-2xl p-5 shadow-xl border border-slate-100">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-bold text-nivea-blue text-sm uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-emerald-500"></i>
+                        Impacto em SEO
+                    </h3>
+                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Ao Vivo</span>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- Dwell Time -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <div class="flex justify-between items-center text-xs text-slate-500 mb-1">
+                            <span>Dwell Time (Tempo de Tela):</span>
+                            <i class="fa-solid fa-stopwatch text-slate-400"></i>
+                        </div>
+                        <div class="text-xl font-bold text-nivea-blue font-mono" id="metricsTime">00:00</div>
+                        <p class="text-[10px] text-emerald-600 mt-0.5">⬆ Aumento direto na autoridade do Google</p>
+                    </div>
+
+                    <!-- Interatividade / Movimentos de Creme -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <div class="flex justify-between items-center text-xs text-slate-500 mb-1">
+                            <span>Interações de Creme:</span>
+                            <i class="fa-solid fa-hand-sparkles text-slate-400"></i>
+                        </div>
+                        <div class="text-xl font-bold text-slate-800" id="metricsInteractions">0 px</div>
+                        <div class="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
+                            <div id="interactionBar" class="bg-nivea-brightBlue h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- CTR Estimado -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <div class="flex justify-between items-center text-xs text-slate-500 mb-1">
+                            <span>CTR Simulado (Click-Through):</span>
+                            <i class="fa-solid fa-mouse-pointer text-slate-400"></i>
+                        </div>
+                        <div class="text-xl font-bold text-amber-600" id="metricsCTR">0.0%</div>
+                        <p class="text-[10px] text-slate-400">Baseado em cliques nas CTAs e Lata</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box explicativa Acadêmica -->
+            <div class="bg-blue-950 text-blue-100 rounded-2xl p-4 shadow-xl text-xs space-y-2 border border-blue-800">
+                <h5 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-graduation-cap"></i> Análise de Mkt Digital
+                </h5>
+                <p class="leading-relaxed">
+                    <strong>Gamificação + Clickbait Saudável:</strong> O conteúdo interativo reduz drasticamente a taxa de rejeição (<em>Bounce Rate</em>) e converte acessos em sinais positivos de engajamento para os algoritmos de busca.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- RODAPÉ INSTITUCIONAL SIMULADO -->
+    <footer class="bg-nivea-blue text-white text-xs py-4 px-4 border-t border-blue-900 mt-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-center md:text-left text-blue-200">
+            <div>
+                <p>© Simulação Acadêmica sem fins lucrativos. Marca registrada © Beiersdorf / NIVEA.</p>
+            </div>
+            <div class="flex space-x-4 text-blue-300">
+                <a href="#" onclick="alert('Simulação SEO para Pós-Graduação de Marketing Digital.')" class="hover:text-white underline">Metodologia SEO</a>
+                <a href="#" onclick="toggleMetricsModal()" class="hover:text-white underline">Painel Didático</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE EXPLICAÇÃO METODOLÓGICA DE SEO (ACADÊMICO) -->
+    <div id="metricsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleMetricsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl font-bold p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="bg-nivea-blue text-white p-3 rounded-2xl">
+                    <i class="fa-solid fa-magnifying-glass-chart text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-nivea-blue">Relatório Didático de Estratégia SEO</h3>
+                    <p class="text-xs text-slate-500">Pós-Graduação em Marketing Digital - Análise de Engajamento</p>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-slate-700 text-sm">
+                <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
+                    <h4 class="font-bold text-nivea-brightBlue mb-1">1. Por que usar Clickbait Interativo?</h4>
+                    <p class="text-xs leading-relaxed">
+                        Manter o usuário ativo no site é uma das métricas indiretas mais valiosas para SEO (*User Engagement Signals*). Títulos instigantes trazem o clique inicial (alto CTR nos SERPs), enquanto o componente tátil previne o *pogo-sticking* (retorno imediato ao Google).
+                    </p>
+                </div>
+
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                    <h4 class="font-bold text-amber-800 mb-1">2. Redução do Bounce Rate e Ganho em Dwell Time</h4>
+                    <p class="text-xs leading-relaxed">
+                        Ao manipular a tampa da lata e simular o espalhamento do creme no canvas HTML5, a permanência média na página cresce de segundos para minutos, indicando ao algoritmo que a intenção de busca foi satisfeita com entretenimento.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-center pt-2">
+                    <div class="bg-slate-100 p-3 rounded-xl">
+                        <span class="block text-xs text-slate-500">Total de Cliques CTA</span>
+                        <strong id="modalCTAClicks" class="text-lg text-nivea-blue">0</strong>
+                    </div>
+                    <div class="bg-slate-100 p-3 rounded-xl">
+                        <span class="block text-xs text-slate-500">Distância do Creme Desenhada</span>
+                        <strong id="modalCreamDistance" class="text-lg text-emerald-600">0 px</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-right">
+                <button onclick="toggleMetricsModal()" class="bg-nivea-blue text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-nivea-brightBlue transition">
+                    Fechar Painel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE LÓGICA INTERATIVA: CANVAS + LATA + MÉTRICAS -->
+    <script>
+        // ESTADO GLOBAL DA APLICAÇÃO
+        let lidOpen = false;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let totalCreamDistance = 0;
+        let totalCTAClicks = 0;
+        let totalPageClicks = 0;
+        let secondsOnPage = 0;
+        let creamBrushSize = 35;
+
+        // ELEMENTOS DOM
+        const tinLid = document.getElementById('tinLid');
+        const lidBtnText = document.getElementById('lidBtnText');
+        const lidHint = document.getElementById('lidHint');
+        const canvas = document.getElementById('creamCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('interactiveContainer');
+        const touchInstruction = document.getElementById('touchInstruction');
+
+        // INICIALIZAÇÃO DO CANVAS
+        function initCanvas() {
+            const rect = container.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            // Configuração do traço do creme (estilo realista cremoso)
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        window.addEventListener('resize', initCanvas);
+        window.addEventListener('load', () => {
+            initCanvas();
+            startDwellTimer();
+        });
+
+        // ABRIR / FECHAR A TAMPA DA LATA DE NIVEA
+        function toggleLid() {
+            lidOpen = !lidOpen;
+            
+            if (lidOpen) {
+                // Animação de abertura: Desloca para o lado e gira ligeiramente
+                tinLid.style.transform = 'translate(140%, -20%) rotate(35deg)';
+                tinLid.style.opacity = '0.9';
+                lidBtnText.innerHTML = '<i class="fa-solid fa-box"></i> Fechar Tampa';
+                lidHint.innerText = 'Tampa Aberta';
+                touchInstruction.innerHTML = '<i class="fa-solid fa-hand-sparkles text-amber-300"></i> Arraste o mouse para passar o creme na pele!';
+                registerCTAClick('abrir_tampa');
+            } else {
+                // Animação de fechamento: Volta à posição original
+                tinLid.style.transform = 'translate(0px, 0px) rotate(0deg)';
+                tinLid.style.opacity = '1';
+                lidBtnText.innerHTML = '<i class="fa-solid fa-box-open"></i> Abrir Tampa da Lata';
+                lidHint.innerText = 'Clique para abrir';
+                touchInstruction.innerHTML = '<i class="fa-solid fa-hand-pointer text-amber-400"></i> Clique na lata para abrir e passar o creme!';
+            }
+        }
+
+        function handleLidClick(e) {
+            e.stopPropagation();
+            toggleLid();
+        }
+
+        // DESENHO DO CREME SIMULADO (TEXTURA E BRILHO)
+        function updateCreamSize(val) {
+            creamBrushSize = parseInt(val);
+            document.getElementById('creamSizeVal').innerText = val + 'px';
+        }
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            if (!lidOpen) {
+                // Se tentar passar creme com a tampa fechada, abre automaticamente
+                toggleLid();
+            }
+            isDrawing = true;
+            const pos = getPos(e);
+            lastX = pos.x;
+            lastY = pos.y;
+            drawCreamSegment(pos.x, pos.y, pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const pos = getPos(e);
+            
+            // Calcular distância percorrida pelo cursor
+            const dist = Math.hypot(pos.x - lastX, pos.y - lastY);
+            totalCreamDistance += Math.round(dist);
+            updateInteractionMetrics();
+
+            drawCreamSegment(lastX, lastY, pos.x, pos.y);
+
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        // Função para desenhar a textura do creme hidratante denso
+        function drawCreamSegment(x1, y1, x2, y2) {
+            // Camada principal de creme branco
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineWidth = creamBrushSize;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.shadowColor = 'rgba(0, 30, 98, 0.08)';
+            ctx.shadowBlur = 6;
+            ctx.stroke();
+
+            // Camada de relevo/brilho superior no centro do traço
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineWidth = creamBrushSize * 0.4;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowBlur = 0;
+            ctx.stroke();
+        }
+
+        // Event Listeners para Mouse e Touch no Canvas
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        window.addEventListener('mouseup', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing, { passive: false });
+        canvas.addEventListener('touchmove', draw, { passive: false });
+        window.addEventListener('touchend', stopDrawing);
+
+        function clearCreamCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // DEMO AUTOMÁTICA DE ESPALHAMENTO DE CREME
+        function autoSpreadDemo() {
+            if (!lidOpen) toggleLid();
+            clearCreamCanvas();
+
+            let angle = 0;
+            let radius = 20;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            let prevX = centerX;
+            let prevY = centerY;
+
+            const interval = setInterval(() => {
+                angle += 0.25;
+                radius += 1.2;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+
+                drawCreamSegment(prevX, prevY, x, y);
+                totalCreamDistance += 15;
+                updateInteractionMetrics();
+
+                prevX = x;
+                prevY = y;
+
+                if (radius > Math.min(canvas.width, canvas.height) * 0.38) {
+                    clearInterval(interval);
+                }
+            }, 20);
+        }
+
+        // CONTADOR DE DWELL TIME & MÉTRICAS SEO
+        function startDwellTimer() {
+            setInterval(() => {
+                secondsOnPage++;
+                const mins = String(Math.floor(secondsOnPage / 60)).padStart(2, '0');
+                const secs = String(secondsOnPage % 60).padStart(2, '0');
+                const formatted = `${mins}:${secs}`;
+
+                document.getElementById('dwellTimer').innerText = formatted;
+                document.getElementById('metricsTime').innerText = formatted;
+            }, 1000);
+        }
+
+        function updateInteractionMetrics() {
+            document.getElementById('metricsInteractions').innerText = `${totalCreamDistance.toLocaleString()} px`;
+            document.getElementById('modalCreamDistance').innerText = `${totalCreamDistance.toLocaleString()} px`;
+
+            // Atualiza barra de progresso visual de engajamento
+            const progress = Math.min(100, (totalCreamDistance / 3000) * 100);
+            document.getElementById('interactionBar').style.width = `${progress}%`;
+        }
+
+        function registerCTAClick(actionName) {
+            totalCTAClicks++;
+            totalPageClicks++;
+            
+            // Calcula CTR simulado com base no envolvimento
+            const ctr = ((totalCTAClicks / Math.max(1, totalPageClicks)) * 100).toFixed(1);
+            document.getElementById('metricsCTR').innerText = `${ctr}%`;
+            document.getElementById('modalCTAClicks').innerText = totalCTAClicks;
+
+            if (actionName === 'comprar_agora') {
+                alert('✨ Simulação de Ação do Usuário:\n\nEm uma campanha real, esta CTA direcionaria o tráfego qualificado retido pelo recurso interativo diretamente para a página de Checkout da NIVEA!');
+            }
+        }
+
+        document.addEventListener('click', () => {
+            totalPageClicks++;
+        });
+
+        function toggleMetricsModal() {
+            const modal = document.getElementById('metricsModal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
